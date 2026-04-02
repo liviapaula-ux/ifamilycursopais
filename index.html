@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFamily - Portal de Capacitação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+        .bg-custom-light { background-color: #f8f8f8; }
+        .text-custom-red { color: #ea1d2c; }
+        .bg-custom-red { background-color: #ea1d2c; }
+        .border-custom-red { border-color: #ea1d2c; }
+
+        input, select {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #1a1a1a !important;
+        }
+
+        input:focus {
+            border-color: #ea1d2c !important;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(234, 29, 44, 0.1);
+        }
+
+        .step-card {
+            transition: all 0.3s ease;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #ea1d2c 0%, #b91c1c 100%);
+        }
+
+        #successMessage {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<header class="bg-white border-b border-zinc-100 p-6 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-custom-red rounded-lg flex items-center justify-center font-black text-white shadow-lg shadow-red-900/10">iF</div>
+            <div>
+                <h1 class="text-xl font-extrabold tracking-tighter leading-none">iFamily</h1>
+            </div>
+        </div>
+        <div class="hidden md:block text-right">
+            <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Iniciativa de Apoio à Paternidade</p>
+            <p class="text-xs text-zinc-500 font-medium">Empresa Cidadã</p>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow flex flex-col items-center py-12 px-6">
+
+<section class="max-w-4xl w-full text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-black mb-6 tracking-tight text-zinc-900">
+        Vamos conhecer um pouco mais sobre a <span class="text-custom-red">paternidade Ativa</span>.
+    </h2>
+    <p class="text-zinc-600 text-lg max-w-2xl mx-auto leading-relaxed">
+        O Ifood é participante do programa Empresa Cidadã, e com isso, pode oferecer licença paternidade estendida. Para cumprir com os requisitos do Programa Empresa Cidadã, você precisa realizar o curso abaixo e enviar o comprovante de conclusão.
+    </p>
+</section>
+
+<div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+
+<div class="step-card bg-zinc-50 p-8 rounded-3xl border border-zinc-200 flex flex-col shadow-sm">
+    <div class="mb-6">
+        <span class="step-number w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-black text-white mb-4 shadow-md shadow-red-500/20">1</span>
+        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Realize o Curso</h3>
+        <p class="text-zinc-500 text-sm">Você será redirecionado para o AVASUS (UFRN) para realizar o curso oficial.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 mb-8 border border-zinc-100 flex-grow shadow-inner">
+        <h4 class="text-zinc-800 font-bold mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea1d2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Conteúdo do curso:
+        </h4>
+
+        <ul class="space-y-2 text-sm text-zinc-500">
+            <li>• Paternidade ativa e consciente</li>
+            <li>• Direitos e Políticas de Saúde</li>
+            <li>• Desenvolvimento infantil e vínculo</li>
+            <li>• Cuidados práticos e prevenção</li>
+        </ul>
+    </div>
+
+    <a href="https://avasus.ufrn.br/local/avasplugin/cursos/curso.php?id=67" target="_blank"
+       class="w-full py-4 bg-zinc-900 text-white font-extrabold rounded-xl text-center hover:bg-black transition-all flex items-center justify-center gap-2 group">
+        ACESSAR CURSO NO AVASUS
+    </a>
+</div>
+
+<div id="formSection" class="step-card bg-white p-8 rounded-3xl border border-zinc-200 relative shadow-xl shadow-zinc-200/50">
+
+    <div class="mb-6">
+        <span class="step-number w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-black text-white mb-4 shadow-md shadow-red-500/20">2</span>
+        <h3 class="text-2xl font-bold mb-2 text-zinc-900">Envie seu Comprovante</h3>
+        <p class="text-zinc-500 text-sm">Preencha os dados abaixo e anexe o certificado para solicitar sua licença estendida.</p>
+    </div>
+
+    <form id="completionForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+
+        <div>
+            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1.5 ml-1 tracking-wider">Nome Completo</label>
+            <input id="nome" type="text" required placeholder="Seu nome completo" class="w-full p-4 rounded-xl text-sm">
+        </div>
+
+        <div>
+            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1.5 ml-1 tracking-wider">E-mail Corporativo</label>
+            <input id="email" type="email" required placeholder="exemplo@ifood.com.br" class="w-full p-4 rounded-xl text-sm">
+        </div>
+
+        <div>
+            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1.5 ml-1 tracking-wider">Data de Conclusão</label>
+            <input id="data" type="date" required class="w-full p-4 rounded-xl text-sm">
+        </div>
+
+        <div>
+            <label class="block text-[10px] font-bold text-zinc-400 uppercase mb-1.5 ml-1 tracking-wider">Certificado (PDF ou Imagem)</label>
+            <input type="file" id="fileInput" required accept=".pdf,.jpg,.jpeg,.png" class="w-full p-4 rounded-xl border">
+            <span id="fileName" class="text-xs font-bold text-zinc-500 mt-2 block">Selecionar arquivo</span>
+        </div>
+
+        <button id="submitBtn" type="submit" class="w-full py-4 bg-custom-red text-white font-extrabold rounded-xl hover:bg-red-700 transition-all mt-4 shadow-lg shadow-red-500/30">
+            ENVIAR COMPROVANTE CURSO
+        </button>
+
+    </form>
+
+    <div id="successMessage" class="absolute inset-0 bg-white rounded-3xl flex flex-col items-center justify-center p-8 text-center border border-zinc-200">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+            ✅
+        </div>
+        <h3 class="text-2xl font-black mb-2 text-zinc-900">Enviado com Sucesso!</h3>
+        <p class="text-zinc-500">Seu comprovante foi recebido.</p>
+    </div>
+
+</div>
+</div>
+</main>
+
+<script>
+document.getElementById('fileInput').addEventListener('change', function(e) {
+    const fileName = e.target.files[0]?.name || "Selecionar arquivo";
+    document.getElementById('fileName').innerText = fileName;
+});
+
+async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const btn = document.getElementById('submitBtn');
+    btn.innerText = 'ENVIANDO...';
+    btn.disabled = true;
+
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const data = document.getElementById('data').value;
+    const file = document.getElementById('fileInput').files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = async function() {
+        const base64 = reader.result.split(',')[1];
+
+        await fetch('https://script.google.com/a/macros/ifood.com.br/s/AKfycbxOWXr5sgjRW_kgDdpox3bctZvuhoR_7GOz8QDsnCZgMg5XkZHPfy212o4f5lNJ508t/exec', {
+            method: 'POST',
+            body: JSON.stringify({
+                nome,
+                email,
+                data,
+                fileName: file.name,
+                mimeType: file.type,
+                fileData: base64
+            })
+        });
+
+        document.getElementById('completionForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'flex';
+    };
+
+    reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
